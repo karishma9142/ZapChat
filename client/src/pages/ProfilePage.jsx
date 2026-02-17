@@ -7,11 +7,17 @@ function ProfilePage(){
     const navigate = useNavigate();
     const [name , setName] = useState("Martin Johnson");
     const [bio , setBio] = useState("Hi Everyone, I am Using QuickChat")
+
+    const ProfilePage = async (e) => {
+        e.preventDefault();
+        navigate('/');
+    }
+
     return (
         <div className="min-h-screen bg-cover bg-no-repeat flex items-center justify-center">
             <div className="w-5/6 max-w-2xl backdrop-blur-2xl text-gray-300 border-2 border-gray-600 
             flex items-center justify-between max-sm:flex-col-reverse rounded-lg">
-                <form className="flex flex-col flex-1 gap-5 p-10">
+                <form onSubmit={ProfilePage} className="flex flex-col flex-1 gap-5 p-10">
                     <h3 className="text-lg">Profile details</h3>
                     <label htmlFor="avatar" className="flex items-center gap-3 cursor-pointer">
                         <input onChange={(e) => setSelectedImg(e.target.files[0])}
@@ -31,7 +37,8 @@ function ProfilePage(){
                     <button type="submit" className="bg-linear-to-r from-purple-400 to-violet-600 text-white
                     p-2 rounded-full text-lg cursor-pointer">Save</button>
                 </form>
-                <img src={assets.logo_icon} alt="" />
+                <img className="max-w-44 aspect-square rounded-full mx-10 max-sm:mt-10"
+                src={assets.logo_icon} alt="" />
             </div>
         </div>
     )
