@@ -3,6 +3,7 @@ import 'dotenv/config';
 import cors from 'cors';
 import http from 'http';
 import { conncetDb } from './lib/db.js';
+import userRouter from './routes/userRoutes.js';
 
 // Create express app and http server
 const app = express();
@@ -15,6 +16,8 @@ app.use(cors());
 app.use("/api/status" , (req,res)=>{
     res.send("server is alive")
 })
+
+app.use("/api/auth" , userRouter);
 
 // connect to db
 await conncetDb();

@@ -1,3 +1,4 @@
+import cloudinary from '../lib/cloudinary';
 import { genrateToken } from '../lib/utils';
 import User from '../models/User';
 import bcrypt from 'bcryptjs'
@@ -104,4 +105,33 @@ export const cheakAuth = (req , res) => {
         success : true , 
         user : req.user
     })
+}
+
+// cotroller to update user profile updates
+
+export const updateProfile = async (req,res) => {
+    const {bio , profilePic , fullName} = req.body;
+    try {
+        const userId = req.user._id;
+        let updatedUser;
+
+        if(!profilePic){
+            updatedUser = await User.findByIdAndUpdate(userId , {bio , fullName} , {new : true})
+        }else {
+            const upload = await cloudinary.uploader.upload(profilePic);
+            updatedUser = await User.findByIdAndUpdate(userId , 
+                {bio,fullName,profilePic : upload.secure_url} , {new : true})
+        }
+        res.status(200).json({
+            success : true , 
+            user : updatedUser,
+            msg : "profile updated succesfully"
+        })
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).json({
+            success : false , 
+            msg : "internal server error"
+        })
+    }
 }
