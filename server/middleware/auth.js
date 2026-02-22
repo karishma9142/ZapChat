@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/User';
+import User from '../models/User.js';
 
 export const auth = async (req, res, next) => {
     const token = req.headers.token;
@@ -17,7 +17,7 @@ export const auth = async (req, res, next) => {
         next();
     } catch (error) {
         console.log(error.message);
-        req.status(500).json({
+        res.status(500).json({
             msg : "internal sever error"
         })
     }

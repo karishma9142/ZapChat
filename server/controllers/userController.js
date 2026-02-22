@@ -1,6 +1,6 @@
-import cloudinary from '../lib/cloudinary';
-import { genrateToken } from '../lib/utils';
-import User from '../models/User';
+import cloudinary from '../lib/cloudinary.js';
+import { genrateToken } from '../lib/utils.js';
+import User from '../models/User.js';
 import bcrypt from 'bcryptjs'
 
 // Sign up a new user
@@ -100,7 +100,7 @@ export const login = async (req,res) => {
 
 // controller to cheak if user is authenticated
 
-export const cheakAuth = (req , res) => {
+export const checkAuth = (req , res) => {
     res.json({
         success : true , 
         user : req.user

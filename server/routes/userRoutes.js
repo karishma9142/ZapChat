@@ -1,12 +1,12 @@
 import express from 'express';
-import { cheakAuth, login, signup, updateProfile } from '../controllers/userController';
-import { auth } from '../middleware/auth';
+import {checkAuth, login, signup, updateProfile } from '../controllers/userController.js';
+import { auth } from '../middleware/auth.js';
 
 const userRouter = express.Router();
 
 userRouter.post("/signup" , signup);
 userRouter.post("/login" , login);
 userRouter.put("/update-profile" , auth , updateProfile);
-userRouter.get("/cheak" , auth , cheakAuth);
+userRouter.get("/check" , auth , checkAuth);
 
 export default userRouter;

@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import assets from "../assets/assets";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage(){
+    const navigate = useNavigate();
     const [currentState , setCurrentState] = useState("Sign up");
     const [fullName , setFullName] = useState("");
     const [email , setEmail] = useState("");
     const [password , setPassword] = useState("");
     const [bio , setBio] = useState("");
     const [isDataSubmitted , setIsDataSubmitted] = useState(false);
+    const {login} = useContext(AuthContext);
 
-    const onSubmitHandler = (event) => {
+    const onSubmitHandler =async (event) => {
         event.preventDefault();
 
         if(currentState === "Sign up" && !isDataSubmitted){
-            setIsDataSubmitted(true)
+            setIsDataSubmitted(true);
             return;
+        }
+
+        const success = await login(currentState === "Sign up" ? "signup" : "login" , {fullName , email , password , bio});
+        if(success){
+            navigate('/')
         }
     }
     return (
@@ -70,7 +79,7 @@ function LoginPage(){
             <div className="flex flex-col gap-2">
                 {currentState === "Sign up" ? (
                     <p className="text-sm text-gray-600">Already have an account <span className="cursor-pointer 
-                    text-violet-400 font-medium" onClick={() => {setCurrentState("Login"); isDataSubmitted(false)}}> Login here</span></p>
+                    text-violet-400 font-medium" onClick={() => {setCurrentState("Login"); setIsDataSubmitted(false);}}> Login here</span></p>
                 ) : (
                     <p className="text-sm text-gray-600">Create ac account <span className="cursor-pointer 
                     text-violet-400 font-medium" onClick={() => setCurrentState("Sign up")}> Click here</span></p>
