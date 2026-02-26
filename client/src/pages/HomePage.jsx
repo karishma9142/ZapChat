@@ -11,8 +11,8 @@ function HomePage() {
             h-full grid grid-cols-1 relative ${selectedser ? 
             'md:grid-cols-[1fr_1.5fr_1fr] xl:grid-cols-[1fr_2fr_1fr]' : 
             'md:grid-cols-2'}`}>
-                <Sideber selectedser={selectedser} setSelectedUser={setSelectedUser}/>
-                <ChatContainer selectedser={selectedser} setSelectedUser={setSelectedUser}/>
+                <Sideber/>
+                <ChatContainer/>
                 <RightSidebar selectedser={selectedser} setSelectedUser={setSelectedUser}/>
             </div>
         </div>
