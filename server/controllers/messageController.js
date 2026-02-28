@@ -95,7 +95,7 @@ export const sendMessage = async (req, res) => {
     try {
         const senderId = req.user._id;
         const receiverId = req.params.id;
-        const text = req.body.message;
+        const text = req.body.text;
         const image = req.body.image;
 
         let imageUrl ;
@@ -118,7 +118,7 @@ export const sendMessage = async (req, res) => {
         }
         res.status(200).json({
             success: true,
-            message : newMessage
+            newMessage: newMessage
         })
     } catch (error) {
         console.log(error.message);
